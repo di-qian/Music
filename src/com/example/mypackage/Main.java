@@ -5,6 +5,7 @@ import com.example.mypackage.model.Datasource;
 import com.example.mypackage.model.SongArtist;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
@@ -47,7 +48,11 @@ public class Main {
 
         datasource.createViewForSongArtists();
 
-        songArtists = datasource.querySongInfoView("Heartless");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a song title: ");
+        String title = scanner.nextLine();
+
+        songArtists = datasource.querySongInfoView(title);
         if(songArtists.isEmpty()){
             System.out.println("Couldn't find the artist for the song");
             return;
@@ -57,6 +62,8 @@ public class Main {
             System.out.println("FROM VIEW - Artist name = " + artist.getArtistName()+ " Album name = " + artist.getAlbumName() +
                     " Track number = " + artist.getTrack());
         }
+
+        datasource.insertSong("Touch of Grey", "Grateful Dead", "In The Dark", 1);
         datasource.close();
 
     }
